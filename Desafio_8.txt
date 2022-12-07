@@ -1,0 +1,35 @@
+use ecommerce
+
+ db.createCollection('Productos')
+
+ db.Productos.insertMany([{nombre:'Tijera', precio:250, stock:20},{nombre:'Regla', precio:140, stock:15},{nombre:'Lapiz', precio:100, stock:40},{nombre:'Lapicera', precio:300, stock:60},{nombre:'Boligoma', precio:430, stock:43},{nombre:'Carpeta', precio:2300, stock:35},{nombre:'Pluma Premium', precio:4350, stock:7},{nombre:'Kit lapizes', precio:4600, stock:10},{nombre:'Mochila', precio:4990, stock:6},{nombre:'Cartuchera', precio:1500, stock:22}])
+
+ db.createCollection('Mensajes')
+
+ db.Mensajes.insertMany([{email:'rodriberdomas@gmail.com', mensaje:'Hola'},{email:'juanasdf@gmail.com', mensaje:'Hola'},{email:'rodriberdomas@gmail.com', mensaje:'Como estas?'},{email:'juanasdf@gmail.com', mensaje:'Bien y vos?'},{email:'rodriberdomas@gmail.com', mensaje:'Todo bien!'},{email:'juanasdf@gmail.com', 
+mensaje:'Me alegro!'},{email:'rodriberdomas@gmail.com', mensaje:'Compraste los utiles para la escuela?'},{email:'juanasdf@gmail.com', mensaje:'No, mañana lo compro'},{email:'rodriberdomas@gmail.com', mensaje:'Dale, genial'},{email:'juanasdf@gmail.com', mensaje:'Nos vemos!'}])
+
+db.Productos.find()
+
+db.Mensajes.find()
+
+show collections
+
+db.Productos.find({precio:{$lt:1000}})
+
+db.Productos.find({precio:{$gt:1000,$lt:3000}})
+
+db.Productos.find().sort({precio:1}).skip(2).limit(1)
+
+db.Productos.updateMany({},{$set:{stock:100}})
+
+db.Productos.deleteMany({precio:{$lt:1000}})
+
+ use admin
+
+ db.createUser({user:"pepe", pwd:"asd456", roles:[{role:"read" , db:"ecommerce"}]})
+
+ exit
+
+ mongod --auth
+
