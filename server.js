@@ -4,6 +4,7 @@ const  Contenedor  = require('./Api/Contenedor.js')
 const {Server : HttpServer} = require('http')
 const {Server : IOServer} = require('socket.io')
 const historialChat = require('./Api/historialChat')
+const generateRandomProducts = require('./Api/Faker')
 //instancias
 const app = express()
 const httpServer = new HttpServer(app)
@@ -19,6 +20,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.static(__dirname +'/public'))
 const productos = new Contenedor('productos.json')
 const mensajes = new historialChat('mensajes.json')
+const listProducts = generateRandomProducts(5)
 app.set ('view engine', 'ejs')
 app.set('views', './public/views')
 
@@ -57,7 +59,9 @@ app.get('/productosC.ejs',  (req,res) => {
 
 })
 
-
+app.get('/api/productos-test',  (req,res) => {
+    res.render('pages/faker', {listprod:listProducts})
+})
 app.post ('/productos', async (req,res) => {
     const data= req.body
     const producto=data 
