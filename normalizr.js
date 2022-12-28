@@ -3,7 +3,7 @@ const originalData = {
     id: "999",
     posts: [
     {
-        id: "123",
+        id: "rodriberdomas@gmail.com",
         author: {
             id: "1",
             nombre: "Pablo",
@@ -15,7 +15,7 @@ const originalData = {
         title: "My awesome blog post",
         comments: [
         {
-            id: "324",
+            id: "javierberdomas@gmail.com",
             commenter: {
                 id: "2",
                 nombre: "Nicole",
@@ -26,7 +26,7 @@ const originalData = {
             },
         },
         {
-            id: "325",
+            id: "santiago@gmail.com",
             commenter: {
                 id: "3",
                 nombre: "Pedro",
@@ -39,7 +39,7 @@ const originalData = {
         ],
     },
     {
-        id: "1123",
+        id: "rodri123@gmail.com",
         author: {
             id: "2",
             nombre: "Nicole",
@@ -51,7 +51,7 @@ const originalData = {
         title: "My awesome blog post",
         comments: [
         {
-            id: "1324",
+            id: "javi456@gmail.com",
             commenter: {
                 id: "1",
                 nombre: "Pablo",
@@ -62,7 +62,7 @@ const originalData = {
             },
         },
         {
-            id: "1325",
+            id: "rodriberdomas@gmail.com",
             commenter: {
                 id: "3",
                 nombre: "Pedro",
@@ -75,7 +75,7 @@ const originalData = {
       ],
     },
     {
-        id: "2123",
+        id: "rodriberdomas@gmail.com",
         author: {
             id: "3",
             nombre: "Pedro",
@@ -87,7 +87,7 @@ const originalData = {
         title: "My awesome blog post",
         comments: [
         {
-            id: "2324",
+            id: "nicole48@gmail.com",
             commenter: {
                 id: "2",
                 nombre: "Nicole",
@@ -98,7 +98,7 @@ const originalData = {
             },
         },
         {
-            id: "2325",
+            id: "pablito96@gmail.com",
             commenter: {
                 id: "1",
                 nombre: "Pablo",
@@ -113,12 +113,12 @@ const originalData = {
 ],
 };
 
-const user = new schema.Entity("users");
+const schemaAuthor = new schema.Entity("author", {}, { idAttribute: "id" });
 const comment = new schema.Entity("comments", {
-    commenter: user,
+    commenter: schemaAuthor,
 });
 const post = new schema.Entity("posts", {
-    author: user,
+    author: schemaAuthor,
     comments: [comment],
 });
 const articles = new schema.Entity("articles", {
