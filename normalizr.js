@@ -3,7 +3,7 @@ const originalData = {
     id: "999",
     posts: [
     {
-        id: "rodriberdomas@gmail.com",
+        email: "rodriberdomas@gmail.com",
         author: {
             id: "1",
             nombre: "Pablo",
@@ -15,7 +15,7 @@ const originalData = {
         title: "My awesome blog post",
         comments: [
         {
-            id: "javierberdomas@gmail.com",
+            email: "javierberdomas@gmail.com",
             commenter: {
                 id: "2",
                 nombre: "Nicole",
@@ -26,7 +26,7 @@ const originalData = {
             },
         },
         {
-            id: "santiago@gmail.com",
+            email: "santiago@gmail.com",
             commenter: {
                 id: "3",
                 nombre: "Pedro",
@@ -39,7 +39,7 @@ const originalData = {
         ],
     },
     {
-        id: "rodri123@gmail.com",
+        email: "rodri123@gmail.com",
         author: {
             id: "2",
             nombre: "Nicole",
@@ -51,7 +51,7 @@ const originalData = {
         title: "My awesome blog post",
         comments: [
         {
-            id: "javi456@gmail.com",
+            email: "javi456@gmail.com",
             commenter: {
                 id: "1",
                 nombre: "Pablo",
@@ -62,7 +62,7 @@ const originalData = {
             },
         },
         {
-            id: "rodriberdomas@gmail.com",
+            email: "rodriberdomas@gmail.com",
             commenter: {
                 id: "3",
                 nombre: "Pedro",
@@ -72,10 +72,10 @@ const originalData = {
                 telefono: "1567291542",
             },
         },
-      ],
+        ],
     },
     {
-        id: "rodriberdomas@gmail.com",
+        email: "rodriberdomas@gmail.com",
         author: {
             id: "3",
             nombre: "Pedro",
@@ -87,7 +87,7 @@ const originalData = {
         title: "My awesome blog post",
         comments: [
         {
-            id: "nicole48@gmail.com",
+            email: "nicole48@gmail.com",
             commenter: {
                 id: "2",
                 nombre: "Nicole",
@@ -98,7 +98,7 @@ const originalData = {
             },
         },
         {
-            id: "pablito96@gmail.com",
+            email: "pablito96@gmail.com",
             commenter: {
                 id: "1",
                 nombre: "Pablo",
@@ -113,18 +113,13 @@ const originalData = {
 ],
 };
 
-const schemaAuthor = new schema.Entity("author", {}, { idAttribute: "id" });
-const comment = new schema.Entity("comments", {
-    commenter: schemaAuthor,
-});
-const post = new schema.Entity("posts", {
-    author: schemaAuthor,
-    comments: [comment],
-});
-const articles = new schema.Entity("articles", {
-    posts: [post],
-});
-const dataNormalizada = normalize(originalData, articles);
+const schemaAuthor = new schema.Entity('author', {}, { idAttribute: 'email' });
+
+const schemaMensaje = new schema.Entity('comments', { author: schemaAuthor }, { idAttribute: 'id' })
+
+const schemaMensajes = new schema.Entity('posts', { mensajes: [schemaMensaje] }, { idAttribute: 'id' })
+
+const normalizarMensajes = (mensajesConId) => normalize({ id: 'mensajes', mensajes: mensajesConId }, schemaMensajes)
 console.log("Datos normalizados: ", dataNormalizada);
 
 const util = require("util");
@@ -141,7 +136,7 @@ console.log(
 
 const dataOriginal = denormalize(
     dataNormalizada.result,
-    articles,
+    schemaMensajes,
     dataNormalizada.entities
 );
 printData(dataOriginal);
